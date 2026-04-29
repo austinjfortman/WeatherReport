@@ -1,0 +1,23 @@
+#!/bin/bash
+
+
+
+OUTPUT_FILE="$HOME/afortman/weather.log"
+
+DATE=$(date)
+
+
+
+echo "=== $DATE ===" >> $OUTPUT_FILE
+
+
+
+curl -s https://api.weather.gov/gridpoints/IWX/69,39/forecast \
+
+        | jq -r '.properties.periods[] | "\(.startTime) | \(.detailedForecast) | \(.temperature)F"'
+
+>> $OUTPUT_FILE
+
+
+
+echo "" >> $OUTPUT_FILE
